@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="MegaApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MegaApp"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    >
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <TextBlock 
+                   Foreground="{ThemeResource AppBarForeground}"
+                   HorizontalAlignment="Left" 
+                   Height="55" 
+                   Margin="10,0,0,0" TextWrapping="Wrap" 
+                   Text="MegaApp v1.0a (internal use)" 
+                   VerticalAlignment="Top" 
+                   Width="345" 
+                   FontSize="24"/>
+        
+        <ListView x:ConnectionId='1' x:Name="ListView01" 
+                  HorizontalAlignment="Center" 
+                  Height="450" Margin="5,55,5,0" 
+                  VerticalAlignment="Top" 
+                  Width="350" 
+                                                                  >
+        </ListView>
+
+
+
+        <!--Button x:Name="Button01" Content="Switch Mega.nz Repo to my" Height="31" Margin="0,23,0,0" VerticalAlignment="Top" Width="340" Click="Button01_Click" HorizontalAlignment="Center"/-->
+
+        <TextBlock x:ConnectionId='2' x:Name="filesList" 
+                   HorizontalAlignment="Center" 
+                   Margin="5,505,5,0" 
+                   TextWrapping="Wrap" 
+                   Text="[ ]" 
+                   VerticalAlignment="Top" 
+                   Height="113" 
+                   Width="350" 
+                   Foreground="{ThemeResource AppBarForeground}" 
+                    />
+        
+    </Grid>
+</Page>
+

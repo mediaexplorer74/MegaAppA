@@ -1,0 +1,2 @@
+c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaApp\MegaApp.csproj;x86
+c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaLib\MegaLib.csproj;x86

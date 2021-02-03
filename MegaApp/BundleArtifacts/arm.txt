@@ -1,0 +1,1 @@
+MainPackage=c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_1.0.0.0_ARM_Debug.appx
