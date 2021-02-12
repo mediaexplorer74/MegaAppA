@@ -8,6 +8,6 @@ Goal: stabilize and simplify processing app
 
 Status: work in progress (1.0 alpha)
 
-![screenshot1](shot1.png "screenshot1")
+![dark_mode](dark.png "dark_mode")
 
-![screenshot2](shot2.png "screenshot2")
+![light_mode](light.png "light_mode")

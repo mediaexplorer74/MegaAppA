@@ -6,7 +6,7 @@ using System.Linq;
 using CG.Web.MegaApiClient; // !
 //using Windows.Storage; // !
 
-namespace Megabox.Model
+namespace MegaApp.Model
 {
     public class Contact
     {
@@ -16,6 +16,10 @@ namespace Megabox.Model
         public static int MegaCount;
 
         // ***********************************************************
+
+        // Массив групп (категорий) файлов (Групп)
+        public static string[] MegaFCategory = new string[10000];
+
         // Массив названий файлов
         public static string[] MegaFName = new string[10000];
         

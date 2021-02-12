@@ -1,4 +1,5 @@
-﻿<Page
+﻿<!-- (c) ME 2021 -->
+<Page
     x:Class="MegaApp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,43 +7,124 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    >
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <CollectionViewSource
+            x:Key="src"
+            IsSourceGrouped="True" />
+    </Page.Resources>
+    <Grid>
+        <StackPanel x:Name="SP1" Margin="0,0,0,0">
+            <TextBlock 
+            Foreground="{ThemeResource AppBarForeground}"
+            HorizontalAlignment="Center" 
+            Margin="0,0,0,0" 
+            TextWrapping="Wrap" 
+            Text="MegaApp v2.0 Alpha" 
+            FontFamily="Arial"
+            FontSize="24"
+            Width="380" 
+            Height="40" 
+            
+             />
+            <ListView x:Name="GroupBox"
+              Foreground="{ThemeResource AppBarForeground}"
+              Background="{ThemeResource AppBarBackgroundThemeBrush}"
+              ItemsSource="{Binding Source={StaticResource src}}"
+              Height="500" 
+              Width="380" 
+              Tapped="GroupBox_Tapped"
+            >
 
-        <TextBlock 
-                   Foreground="{ThemeResource AppBarForeground}"
-                   HorizontalAlignment="Left" 
-                   Height="55" 
-                   Margin="10,0,0,0" TextWrapping="Wrap" 
-                   Text="MegaApp v1.0 Alpha" 
-                   VerticalAlignment="Top" 
-                   Width="345" 
-                   FontSize="24"/>
-        
-        <ListView x:Name="ListView01" 
+                <!-- Стиль заголовка группы -->
+                <ListView.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                Text="{Binding Category}"
+                                
+                                Foreground="{ThemeResource AppBarForeground}"
+                                FontFamily="Arial"
+                                FontSize="18" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                FontSize="14"
+                                Text="{Binding Product}" 
+                             />
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+
+
+            <!--Button x:Name="Button01" 
+                    Content="Switch to MEGA's W10M group repo" 
+                    Height="47" Margin="0,23,0,0" 
+                    Width="287" 
+                    Click="GroupBoxManualUpdate_Click" 
+                    HorizontalAlignment="Center"/-->
+
+            <!-- 
+            ItemClick="GroupBox_ItemClick" 
+            SelectionChanged="Click_GroupBoxSelectChanged"
+            -->
+
+
+
+
+            <!--ListView x:Name="ListView01" 
                   HorizontalAlignment="Center" 
-                  Height="450" Margin="5,55,5,0" 
-                  VerticalAlignment="Top" 
-                  Width="350"                  
+                  Height="177" Margin="0,0,0,0" 
+                  Width="642"                  
                   SelectionChanged="Click_ListView01SelectChanged"
-                  >
-        </ListView>
+                      Background="LightBlue"
+                  /-->
 
-        
 
-         <!--Button x:Name="Button01" Content="Switch Mega.nz Repo to my" Height="31" Margin="0,23,0,0" VerticalAlignment="Top" Width="340" Click="Button01_Click" HorizontalAlignment="Center"/-->
 
-        <TextBlock x:Name="filesList" 
+
+            <!--TextBlock x:Name="filesList" 
                    HorizontalAlignment="Center" 
-                   Margin="5,505,5,0" 
-                   TextWrapping="Wrap" 
-                   Text="[ ]" 
-                   VerticalAlignment="Top" 
-                   Height="113" 
-                   Width="350" 
+                   Margin="0,0,0,0" 
+                   Text=" " 
+                   TextWrapping="Wrap"
+                   FontFamily="Arial"     
+                   FontSize="14"
+                   Height="180" 
+                   Width="360" 
                    Foreground="{ThemeResource AppBarForeground}" 
-                    />
+                   RenderTransformOrigin="0.509,2.558" 
+             /-->
+
+
         
+
+            <!--Button x:Name="Button" Content="qwqwqwqw" Background="Green" Height="75"/-->
+
+            <!--ListView x:Name="filesList" 
+                  Foreground="{ThemeResource AppBarForeground}" 
+                  Background="{ThemeResource AppBarBackgroundThemeBrush}"
+                  HorizontalAlignment="Center" Margin="0,0,0,0" 
+                  Height="260" 
+                  Width="360">
+            </-->
+        </StackPanel>
     </Grid>
 </Page>
+

@@ -1,38 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" IgnorableNamespaces="uap mp iot">
-  <Identity Name="c245d0af-ee39-2535-ab74-7b3e37405114" Publisher="CN=mediaexplorer" Version="1.0.0.0" />
-  <mp:PhoneIdentity PhoneProductId="c245d0af-ee39-4c94-ab74-7b3e37405114" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity
+    Name="MegaApp2-44a4-416a-9c27-f5d95f239717"
+    Publisher="CN=media"
+    Version="2.0.5.0" />
+
+  <mp:PhoneIdentity PhoneProductId="7550b427-44a4-416a-9c27-f5d95f239717" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
   <Properties>
-    <DisplayName>MegaApp.Repo.Alpha</DisplayName>
-    <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
+    <DisplayName>mediaexplorer.megaapp2.alpha</DisplayName>
+    <PublisherDisplayName>media</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
+
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
+
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="x-generate"/>
   </Resources>
+
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="MegaApp.App">
-      <uap:VisualElements DisplayName="MegaApp v1.0 Alpha" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="App1" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
-        </uap:DefaultTile>
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="MegaApp.App">
+      <uap:VisualElements
+        DisplayName="MegaApp 2.0 alpha"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        Description="MegaApp 2.0 alpha"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
-          <uap:Rotation Preference="portrait" />
-          <uap:Rotation Preference="landscape" />
-          <uap:Rotation Preference="portraitFlipped" />
-          <uap:Rotation Preference="landscapeFlipped" />
-        </uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscape"/>
+          <uap:Rotation Preference="portrait"/>
+          <uap:Rotation Preference="landscapeFlipped"/>
+          <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>
+
   <Capabilities>
-    <Capability Name="privateNetworkClientServer" />
-    <Capability Name="internetClientServer" />
-    <iot:Capability Name="lowLevelDevices" />
-    <uap:Capability Name="picturesLibrary" />
-    <DeviceCapability Name="lowLevel" />
+    <Capability Name="internetClient" />
+    <uap:Capability Name="picturesLibrary"/>
+    <Capability Name="privateNetworkClientServer"/>
   </Capabilities>
 </Package>

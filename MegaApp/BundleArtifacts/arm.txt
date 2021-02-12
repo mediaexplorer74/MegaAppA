@@ -1,1 +1,1 @@
-MainPackage=c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_1.0.0.0_ARM_Debug.appx
+MainPackage=c:\Users\media\source\repos\MegaApp2.0 Alpha (UWP)\MegaApp\bin\ARM\Debug\MegaApp_2.0.5.0_ARM_Debug.appx

@@ -1,2 +1,0 @@
-c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaApp\MegaApp.csproj;arm
-c:\Users\mediaexplorer\source\repos\MegaLib 1.0 Alpha\MegaLib\MegaLib.csproj;arm
