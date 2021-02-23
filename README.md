@@ -1,14 +1,15 @@
-# MegaApp
-
-MegaApp is full MegaBox remake 
+MegaApp 3.0 alpha
+MegaApp is full MegaBox remake :) This is prolongation of MegaApp 2.0 project. 
 
 Platform: UWP (not Xamarin!!!)
 
-Goal: stabilize and simplify processing app
+Description
+"MEGA APP" is a "cover" for W10Group's Mega.Nz repo (https://mega.nz/folder/SYtigRjB#EhNuflDF9fefSXuolgn0Rw)
 
-Status: work in progress (2.0 alpha)
-Todo (future plans): data/element bingings, design improvements =) 
 
-![dark_mode](dark.png "dark_mode")
+![screenshot1](shot1.png "screenshot1")
+![screenshot2](shot2.png "screenshot2")
 
-![light_mode](light.png "light_mode")
+Status: work in progress (3.0 alpha) 
+Todo (future plans): re-design, async improvements, etc. =)
+

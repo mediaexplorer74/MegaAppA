@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,100 +13,55 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
-using CG.Web.MegaApiClient;
+using MegaApp.Model; // !!
+using CG.Web.MegaApiClient; // !
 using Windows.Storage;
-using Windows.UI.Popups;
-using System.Text;
-using MegaApp.Model;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
-
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace MegaApp
 {
-    
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
     public sealed partial class MainPage : Page
     {
-        CollectionViewSource cvs;
-        
-        IEnumerable<CategoryGroup> groups;
+        private ObservableCollection<Model.DataItem> MegaItems;
 
-       
-        string CurrectFCategory; // текущая категория файлов указатель на группу)
-        int DirectoryCount;      // counter для каталогов
+        static string CurrectFCategory;     // текущая ф. категория (группа файл. обьектов, каталог)
+        static string CurrectFSubcategory;  // текущая ф. подкатегория (подгруппа, подкаталог)
 
-        string megaStorageURL; // 
+        static int DirectoryCount;          // counter для каталогов
+        int SubdirectoryCount;              // counter для каталогов
 
+        static string megaStorageURL;       // Mega.nz root "directory" URL
+        //static bool isBusy;                 // Status of Task 
 
         public MainPage()
         {
-           
             this.InitializeComponent();
+            
+            MegaItems = new ObservableCollection<Model.DataItem>();
+        }
 
-            // 1 Preprocess...
-
-            // SANDBOX (ME MEGA channel)
-            //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; // Sample 2 (created by ME)
-
-            // PRODUCTION (W10M Tg MEGA channel)
-            megaStorageURL = "https://mega.nz/#F!SYtigRjB!EhNuflDF9fefSXuolgn0Rw"; 
-
-            // Collect and prepare Mega.nz data...
-            Preprocess(megaStorageURL);
-
-
-            // 2 Form App Groups
-            this.NavigationCacheMode = NavigationCacheMode.Required;
-
-
-            // create transit object mc
-            var mc = new SourceData();
-
-            IEnumerable<SourceData> myEnumerable = mc.GetData();
-                        
-            IEnumerable<CategoryGroup> groups =
-                from item in myEnumerable
-                group item by item.Category
-                    into categoryGroup
-                let categoryGroupItems =
-                    from item2 in categoryGroup
-                    group item2 by item2.Product
-                    into productGroup
-                    select new ProductGroup(productGroup)
-                    {
-                        Product = productGroup.Key
-                    }
-                select new CategoryGroup(categoryGroupItems)
-                {
-                    Category = categoryGroup.Key
-                };
-
-            //var 
-            cvs = (CollectionViewSource)Resources["src"];
-
-            cvs.Source = groups.ToList();
-
-
-           
-        }// MainPage
-
-
-
-        // Collect and prepare Mega.nz data...
+       
+        // Preprocess: Collect and prepare Mega.nz data...
         private void Preprocess(string MegaSharedFolderURL)
         {
-
-            //TEMP
-            //filesList.Items.Clear(); // clear it =)
-          
             Contact.MegaCount = 0; // counter init 
-            
+
+            Contact.MegaCount = 0; // counter init 
+
             CurrectFCategory = "<Root>"; // 'parent' group (file category) init  
             DirectoryCount = 0;
-            
+
+            CurrectFSubcategory = "<Root>"; // 'parent' sub-group (sub-folder) init  
+            SubdirectoryCount = 0;
+
             //ListView01.Items.Clear(); // clear ListView 
-           
+
 
             // "no login"
             MegaClient.client.LoginAnonymous(); // "Users only" =)
@@ -126,45 +82,88 @@ namespace MegaApp
             MegaClient.parent = MegaClient.nodes.Single(n => n.Type == NodeType.Root);
 
             // Get sub-nodes (folders and files in level 1, 2, etc...)
-            ProcessAllSubNodes(MegaClient.nodes, MegaClient.parent);
+             ProcessAllSubNodes(MegaClient.nodes, MegaClient.parent);
 
             // Logout
             MegaClient.client.Logout();
 
-           
-        }
+        }//Preprocess() end
 
-        
+
+
+        // Preprocess: Collect and prepare Mega.nz data...
+        private async Task PreprocessAsync(string MegaSharedFolderURL)
+        {
+            Contact.MegaCount = 0; // counter init 
+
+            Contact.MegaCount = 0; // counter init 
+
+            CurrectFCategory = "<Root>"; // 'parent' group (file category) init  
+            DirectoryCount = 0;
+
+            CurrectFSubcategory = "<Root>"; // 'parent' sub-group (sub-folder) init  
+            SubdirectoryCount = 0;
+
+            //ListView01.Items.Clear(); // clear ListView 
+
+
+            // "no login"
+            await MegaClient.client.LoginAnonymousAsync(); // "Users only" =)
+
+            // GetNodes retrieves all files/folders metadata from Mega
+            // so this method can be time consuming
+
+            //IEnumerable<INode> nodes = MegaClient.client.GetNodes();
+
+
+            // Reconstruct URI
+            Uri folderLink = new Uri(MegaSharedFolderURL);
+
+            // Get nodes (folders and files in level 0)
+            MegaClient.nodes = MegaClient.client.GetNodesFromLink(folderLink);
+
+            // Get parent node 
+            MegaClient.parent = MegaClient.nodes.Single(n => n.Type == NodeType.Root);
+
+            // Get sub-nodes (folders and files in level 1, 2, etc...)
+            ProcessAllSubNodes(MegaClient.nodes, MegaClient.parent);
+
+            // Logout
+            await MegaClient.client.LogoutAsync();
+
+        }//PreprocessAsync() end
+
         // Process All Sub Nodes (Level 1, 2, etc...)
         void ProcessAllSubNodes(IEnumerable<INode> nodes, INode parent, int level = 0)
         {
-            string infos;
+            
             IEnumerable<INode> children = nodes.Where(x => x.ParentId == parent.Id);
 
             foreach (INode child in children)
             {
-                //string infos = $"- {child.Name} - {child.Size} bytes - {child.CreationDate}";
-
+               
                 if (child.Type.ToString() == "Directory")
                 {
 
                     // *** FOLDER object found ***
 
-                    // New Category found?
-                    if ( child.Name != CurrectFCategory && child.Size == 0)
+                    // New Category found? Is Level = 0?? OK!
+                    if ((child.Name != CurrectFCategory && child.Size == 0) && (level == 0))
                     {
                         // Change category !
-                        CurrectFCategory = $"[{DirectoryCount.ToString()}] {child.Name.ToUpper()}";
+                        CurrectFCategory = $"{child.Name.ToUpper()}";
 
                         DirectoryCount++; // текущая категория файлов указатель на группу)
                     }
 
+                    // New Category found? Is Level = 0?? OK!
+                    if ((child.Name != CurrectFSubcategory && child.Size == 0) && (level <= 1))
+                    {
+                        // Change category !
+                        CurrectFSubcategory = $"{child.Name.ToUpper()}";
 
-                    //infos = $"{child.Name.ToUpper()}";
-
-                    //SuperWriteLine(infos.PadLeft(infos.Length + level, '\t'));
-
-                    //Contact.MegaFName[Contact.MegaCount] = $"";
+                        SubdirectoryCount++; // текущая категория файлов указатель на группу)
+                    }
 
 
                 }
@@ -172,19 +171,16 @@ namespace MegaApp
                 {
                     //*** FILE object found ***
 
-                    //infos = $"{child.Name} [{child.Size} bytes]";
-
-                    //SuperWriteLine(infos.PadLeft(infos.Length + level, '\t'));
-
-                    // Fulfil "Contact" repo
+                   
                     Contact.MegaFName[Contact.MegaCount]
-                    = $"[{Contact.MegaCount}] {child.Name}";
+                    = $"{child.Name}";
 
-                    
 
                     Contact.MegaFCategory[Contact.MegaCount]
                         = $"{CurrectFCategory}";
 
+                    Contact.MegaFSubcategory[Contact.MegaCount]
+                        = $"{CurrectFSubcategory}";
 
 
                     Contact.MegaFKey[Contact.MegaCount]
@@ -193,19 +189,13 @@ namespace MegaApp
                     // Store ALL INode object !
                     MegaClient.arNodes[Contact.MegaCount] = child;
 
-
-                    // show full info 
-                    infos = $"{Contact.MegaCount} | {CurrectFCategory.ToUpper()} | {child.Name}";
-
-                    SuperWriteLine(infos);
-
-                    // Increase counter 
+                    
                     Contact.MegaCount++;
 
                 }
 
 
-                
+
 
                 // Если нашли "потомков" класса "Папка", повторяем маневры... 
                 if (child.Type == NodeType.Directory)
@@ -216,81 +206,223 @@ namespace MegaApp
         }//ProcessAllSubNodes
 
 
-        // Add new item into ListView
-        void SuperWriteLine(string s)
+
+        // Hamburger Menu Button Click handler
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
         {
-            //filesList.Items.Add(s);
+            MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
 
-        // GroupBox Manual update handle (when click)
-        private void GroupBoxManualUpdate_Click(object sender, RoutedEventArgs e)
+        // Hamburger Menu "List" (ListBox) Item Selection handler
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          
-            // ------------------------------------------------------------------
+            if (Home.IsSelected)
+            {
+                MegaManager.GetAllNews(MegaItems);
+                TitleTextBlock.Text = $"Home";
+            }
+            else if (Guides.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("!Guides", MegaItems);
+                TitleTextBlock.Text = $"Guides";
+            }
+            else if (CameranPhotos.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Camera + Photos", MegaItems);
+                TitleTextBlock.Text = $"Camera + Photos";
+            }
+            else if (Customization.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Customization", MegaItems);
+                TitleTextBlock.Text = $"Customization";
+            }
+            //else if (Dependencies.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Dependencies", MegaItems);
+            //    TitleTextBlock.Text = $"Dependancies";
+            //}
+            //else if (Emulators.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Emulators", MegaItems);
+            //    TitleTextBlock.Text = $"Emulators";
+            //}
+            //else if (HPExclusive.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Hp exclusive apps", MegaItems);
+            //    TitleTextBlock.Text = $"HP exclusive apps";
+            //}
+            else if (MicrosoftApps.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Microsoft apps (Stock,leaked,retired,Extensions, etc)", MegaItems);
+                TitleTextBlock.Text = $"Microsoft apps";
+            }
+            else if (Multimedia.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Multimedia", MegaItems);
+                TitleTextBlock.Text = $"Multimedia";
+            }
+            else if (OldMemories.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Old memories and resources", MegaItems);
+                TitleTextBlock.Text = $"Old memories and resources";
+            }
+            //else if (Productivity.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Productivity", MegaItems);
+            //    TitleTextBlock.Text = $"Productivity";
+            //}
+            else if (Social.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Social", MegaItems);
+                TitleTextBlock.Text = $"Social";
+            }
+            else if (Tweaks.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Tools and Tweaks", MegaItems);
+                TitleTextBlock.Text = $"Tools and Tweaks";
+            }
+            else if (Travel.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Travel, Weather, News, Sports, Navigation", MegaItems);
+                TitleTextBlock.Text = "Travel, Weather, etc.";
+            }
+            //else if (W10M.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("W10M PC Tools", MegaItems);
+            //    TitleTextBlock.Text = "W10M PC Tools";
+            //}
+            else if (XBox.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Xbox and Non Xbox live Games", MegaItems);
+                TitleTextBlock.Text = "Xbox and Non Xbox live Games";
+            }
+            SearchBox.Text = ""; // clear SearchBox =)
 
-            // SANDBOX (ME MEGA channel)
-            //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; 
+        }//
 
-            // PRODUCTION (W10M Tg MEGA channel)
-            megaStorageURL = "https://mega.nz/#F!SYtigRjB!EhNuflDF9fefSXuolgn0Rw";
 
+        // "Text is searchbar changed" event handler
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var FItems = MegaManager.getMegaItems();
+
+            if (SearchBox.Text != "")
+            {
+                // All 
+                FItems = (from s in FItems where s.Headline.Contains(SearchBox.Text) select s).ToList();//LINQ Query  
+            }
+            else
+            {
+                // do nothing ;)
+            }
+
+            MegaItems.Clear();
+            FItems.ForEach(p => MegaItems.Add(p));
+        }//sbar_TextChanged
+
+
+        // "Search button click" event handler
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            var FItems = MegaManager.getMegaItems();
+
+            if (SearchBox.Text != "")
+            {
+                // All 
+                FItems = (from s in FItems where s.Headline.Contains(SearchBox.Text) select s).ToList();//LINQ Query  
+            }
+            else
+            {
+                // do nothing ;)
+            }
+
+            MegaItems.Clear();
+            FItems.ForEach(p => MegaItems.Add(p));
+        }//
+
+        // ** FIRST PROCESS ** 
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+           
+            MyProgressRing.IsActive = true;
+            MyProgressRing.Visibility = Visibility.Visible;
+                                     
+
+            // ******************************************************************
+            
+            // phase 1 
+            // !!
+            //MegaItems = new ObservableCollection<Model.DataItem>();
+
+            //TEST 0
+            //megaStorageURL = "https://mega.nz/#F!e1ogxQ7T!ee4Q_ocD1bSLmNeg9B6kBw"; // Sample 1 (created by someone)
+
+            //TEST 1
+            //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; // Sample 2 (created by ME)
+
+            //TEST 2
+            megaStorageURL = "https://mega.nz/#F!SYtigRjB!EhNuflDF9fefSXuolgn0Rw"; // Prod (W10M)
+
+            // phase 2 
             // Collect and prepare Mega.nz data...
-            Preprocess(megaStorageURL);
-
-            //-------------------------------------------------------------------
-
-            // RnD: Manual forming of some app groups
-            this.NavigationCacheMode = NavigationCacheMode.Required;
-
-         
-            //IEnumerable<CategoryGroup> 
-
-            // create transit object mc
-            var mc = new SourceData();
-                       
-            IEnumerable<SourceData> myEnumerable = mc.GetData();
+            await PreprocessAsync(megaStorageURL); // non-async
 
 
-            groups =
-                from item in myEnumerable
-                group item by item.Category
-                    into categoryGroup
-                let categoryGroupItems =
-                    from item2 in categoryGroup
-                    group item2 by item2.Product
-                    into productGroup
-                    select new ProductGroup(productGroup)
-                    {
-                        Product = productGroup.Key
-                    }
-                select new CategoryGroup(categoryGroupItems)
-                {
-                    Category = categoryGroup.Key
-                };
+            // Start loading Data from Mega.Nz...
+            /*
+            while (Contact.MegaCount < 1923)
+            {
+                Task t = PreprocessAsync(megaStorageURL);//MarvelFacade.PopulateMarvelCharactersAsync(MarvelCharacters);
+                await t;
+            }
+            */
 
-            
-            cvs = (CollectionViewSource)Resources["src"];
+            // ************************************************
+            /*
+            var FItems = MegaManager.getMegaItems();
 
-            cvs.Source = groups.ToList();
 
-            
+            if (MegaItems != null)
+            {
+                MegaItems.Clear();
+                FItems.ForEach(p => MegaItems.Add(p));
+            }
+            */
+
+           
+            // ******************************************************************
+
+
+            MegaManager.GetAllNews(MegaItems);
+
+            // HOME is pre-select category (when 1st page load) =)
+            Home.IsSelected = true;
+
+            MyProgressRing.IsActive = false;
+            MyProgressRing.Visibility = Visibility.Collapsed;
         }
 
-        
-
-        
-        // GroupBox Item taped 
-        private async void GroupBox_Tapped(object sender, TappedRoutedEventArgs e)
+        // MegaItem_Tapped
+        private async void MegaItemGrid_ItemClick(object sender, ItemClickEventArgs e)
         {
-            //var idx = 0; // 
-
-            // Init status...
-            //filesList.Text = $"";
+            // Phase 1 
 
             //Temp: "Click / Tap " handle with Diagnostics output (message box only)
-            ListView l1 = sender as ListView;
-            int idx = l1.SelectedIndex;
+
+            int idx = -1;
+
+            try
+            {
+                var T1 = (DataItem)e.ClickedItem;
+
+                idx = T1.Id; // int
+            }
+            catch (Exception Exp1)
+            {
+                // Little Error Diagnostics
+                Debug.WriteLine(Exp1.Message);
+            }
 
             // FoolishProof *******************
             //1
@@ -357,7 +489,7 @@ namespace MegaApp
             {
                 Title = "Operation Request",
                 Content = "Do you want to download (into Image folder) & launch file \n" +
-               MegaClient.arNodes[idx].Name+
+               MegaClient.arNodes[idx].Name +
                " \n" +
                "[file size: " +
                MegaClient.arNodes[idx].Size.ToString() + " bytes\n"
@@ -375,13 +507,13 @@ namespace MegaApp
                 // Change status...
                 //filesList.Text = "Downloading...";
             }
-            else 
+            else
             {
                 //if (result == ContentDialogResult.Secondary)
-                
+
 
                 // Change status to empty
-               //filesList.Text = "";
+                //filesList.Text = "";
                 return;
             }
 
@@ -390,7 +522,7 @@ namespace MegaApp
             //"MEGA login"
             MegaClient.client.LoginAnonymous();
 
-            
+
 
             // Скачиваем файл и получаем полный путь к нему...
             string FullLSPath = MegaClient.client.DownloadFile
@@ -403,74 +535,62 @@ namespace MegaApp
             MegaClient.client.Logout();
 
 
-            // -----------------
+            
+
+            // 1 Copy to Image folder
+            
+            // 
+            string ShortFName = MegaClient.arNodes[idx].Name;
 
             StorageFolder folder = ApplicationData.Current.LocalFolder;//KnownFolders.VideosLibrary;
+
             IReadOnlyList<StorageFile> files = await folder.GetFilesAsync();
 
-            // Пробегаемся по всем файлам в хранилище... ищем скачанный 
+            // Пробегаемся по всем файлам в хранилище... ищем скачанный файлик
             // TODO: че-то придумать с избавлением от цикла!!!
             foreach (StorageFile ffile in files)
             {
                 if (ffile.Path == FullLSPath)
                 {
-                    // Show stop-point...
-                    //filesList.Text = $"File downloaded from Mega.nz into Images folder.\n";
-                    //filesList.Text += $"{ffile.Name}\n";
-                    var props = await ffile.GetBasicPropertiesAsync();
-                    //filesList.Text += $"Date modified: {props.DateModified} \n";
-                    //filesList.Text += $"Size: {props.Size} \n\n";
-
-                    // ++++++++++++++++++++
+                    // DEBUG and TEST ONLY -- comment after all !
+                    //Debug.WriteLine(FullLSPath);
 
                     StorageFolder fLibrary = await KnownFolders.GetFolderForUserAsync(null, KnownFolderId.PicturesLibrary);
-                    StorageFile fileCopy = await ffile.CopyAsync(fLibrary, MegaClient.arNodes[idx].Name, NameCollisionOption.ReplaceExisting);
+
+
+                    StorageFile fileCopy = await ffile.CopyAsync(fLibrary, ShortFName, NameCollisionOption.ReplaceExisting);
+
+                    //подчищаем мусор =)
+                    ffile.DeleteAsync();
                 }
             }
 
 
-            // Phase 3 - Launch result !
+            // 2  File Launching
 
             // Path to the file in the app package to launch
-            string appxFile = MegaClient.arNodes[idx].Name;
+            string appxFile = ShortFName;
 
 
-            // определяем локальное хранилище
-            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            // Detect current Local Storage...
+            //StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFolder imageFolder =
+                await KnownFolders.GetFolderForUserAsync(null, KnownFolderId.PicturesLibrary);
 
-            // подправляем путь
-            string FullPath = localFolder.Path + "\\" + appxFile;
+            // Construct full path...
+            //string FullPath = localFolder.Path + "\\" + appxFile;
 
-            //string FullLSPath = client.DownloadFile(fileLink, node.Name);
-
-            var appFile = await localFolder.GetFileAsync(appxFile);
-
+            var appFile = await imageFolder.GetFileAsync(appxFile);
 
             if (appFile != null)
             {
                 // Launch the retrieved file
                 var success = await Windows.System.Launcher.LaunchFileAsync(appFile);
-
-                if (success)
-                {
-                    // File launched (TODO: some msg)
-                }
-                else
-                {
-                    // File launch failed (TODO: some msg)
-                }
-            }
-            else
-            {
-                // Could not find file (TODO: some msg)
             }
 
-            
 
-        }// GroupBox_Taped end
+        }//MegaItemGrid_ItemClick end
 
+    }// partial class end   
 
-    }// Page partial class end 
-
-
-} // namespace MegaApp end
+}// namespace end

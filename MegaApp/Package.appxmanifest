@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="MegaApp2-44a4-416a-9c27-f5d95f239717"
+    Name="MegaApp3a-dda8-4344-bba6-7d3a5244087f"
     Publisher="CN=media"
-    Version="2.0.5.0" />
+    Version="3.0.9.0" />
 
-  <mp:PhoneIdentity PhoneProductId="7550b427-44a4-416a-9c27-f5d95f239717" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="826a875b-dda8-4344-bba6-7d3a5244087f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>mediaexplorer.megaapp2.alpha</DisplayName>
-    <PublisherDisplayName>media</PublisherDisplayName>
+    <DisplayName>MediaExplorer.MegaApp3.Alpha</DisplayName>
+    <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -32,12 +32,12 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="MegaApp.App">
       <uap:VisualElements
-        DisplayName="MegaApp 2.0 alpha"
+        DisplayName="MegaApp 3.0a"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="MegaApp 2.0 alpha"
+        Description="MegaApp 3.0a UWP App"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/>
@@ -51,6 +51,5 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <uap:Capability Name="picturesLibrary"/>
-    <Capability Name="privateNetworkClientServer"/>
   </Capabilities>
 </Package>

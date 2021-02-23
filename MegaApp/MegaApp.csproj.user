@@ -9,5 +9,13 @@
     <AppxShowAllApps>False</AppxShowAllApps>
     <AppxBuildConfigurationSelection>arm</AppxBuildConfigurationSelection>
     <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <Source>C:\Users\media\Desktop\MegaApp.jpg</Source>
+    <SmallTileSource>C:\Users\media\Desktop\MegaApp.jpg</SmallTileSource>
+    <MediumTileSource>C:\Users\media\Desktop\MegaApp.jpg</MediumTileSource>
+    <WideTileSource>C:\Users\media\Desktop\MegaApp.jpg</WideTileSource>
+    <LargeTileSource>C:\Users\media\Desktop\MegaApp.jpg</LargeTileSource>
+    <AppIconSource>C:\Users\media\Desktop\MegaApp.jpg</AppIconSource>
+    <SplashScreenSource>C:\Users\media\Desktop\MegaApp.jpg</SplashScreenSource>
+    <PackageLogoSource>C:\Users\media\Desktop\MegaApp.jpg</PackageLogoSource>
   </PropertyGroup>
 </Project>
