@@ -21,11 +21,11 @@ I only fixed main categories at main menu.
 UI re-design (show item's mod. date?), new kind of item sorting (order by file date attr.), etc. 
 
 
+## .
 AS IS. No support. 
 
-
+## ..
 Cheers up,
-
 
   [m][e] 2022
 
