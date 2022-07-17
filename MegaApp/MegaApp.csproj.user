@@ -7,15 +7,15 @@
   <PropertyGroup>
     <UapAppxPackageBuildMode>SideloadOnly</UapAppxPackageBuildMode>
     <AppxShowAllApps>False</AppxShowAllApps>
-    <AppxBuildConfigurationSelection>arm</AppxBuildConfigurationSelection>
+    <AppxBuildConfigurationSelection>x64|arm</AppxBuildConfigurationSelection>
     <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
-    <Source>C:\Users\media\Desktop\MegaApp.jpg</Source>
-    <SmallTileSource>C:\Users\media\Desktop\MegaApp.jpg</SmallTileSource>
-    <MediumTileSource>C:\Users\media\Desktop\MegaApp.jpg</MediumTileSource>
-    <WideTileSource>C:\Users\media\Desktop\MegaApp.jpg</WideTileSource>
-    <LargeTileSource>C:\Users\media\Desktop\MegaApp.jpg</LargeTileSource>
-    <AppIconSource>C:\Users\media\Desktop\MegaApp.jpg</AppIconSource>
-    <SplashScreenSource>C:\Users\media\Desktop\MegaApp.jpg</SplashScreenSource>
-    <PackageLogoSource>C:\Users\media\Desktop\MegaApp.jpg</PackageLogoSource>
+    <Source>C:\Users\media\Desktop\MegaApp.png</Source>
+    <SmallTileSource>C:\Users\media\Desktop\MegaApp.png</SmallTileSource>
+    <MediumTileSource>C:\Users\media\Desktop\MegaApp.png</MediumTileSource>
+    <WideTileSource>C:\Users\media\Desktop\MegaApp.png</WideTileSource>
+    <LargeTileSource>C:\Users\media\Desktop\MegaApp.png</LargeTileSource>
+    <AppIconSource>C:\Users\media\Desktop\MegaApp.png</AppIconSource>
+    <SplashScreenSource>C:\Users\media\Desktop\MegaApp.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\media\Desktop\MegaApp.png</PackageLogoSource>
   </PropertyGroup>
 </Project>

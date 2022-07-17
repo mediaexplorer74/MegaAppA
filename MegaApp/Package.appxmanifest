@@ -7,14 +7,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="MegaApp3a-dda8-4344-bba6-7d3a5244087f"
+    Name="MegaApp4-dda8-4344-bba6-7d3a52440676"
     Publisher="CN=media"
-    Version="3.0.9.0" />
+    Version="4.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="826a875b-dda8-4344-bba6-7d3a5244087f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>MediaExplorer.MegaApp3.Alpha</DisplayName>
+    <DisplayName>MediaExplorer.MegaApp4</DisplayName>
     <PublisherDisplayName>mediaexplorer</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,18 +32,17 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="MegaApp.App">
       <uap:VisualElements
-        DisplayName="MegaApp 3.0a"
+        DisplayName="MegaApp 4"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="MegaApp 3.0a UWP App"
+        Description="MegaApp 4 -- W10MGroup Mega File Repo App"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/>
           <uap:Rotation Preference="portrait"/>
-          <uap:Rotation Preference="landscapeFlipped"/>
-          <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
+          <uap:Rotation Preference="landscapeFlipped"/></uap:InitialRotationPreference>
       </uap:VisualElements>
     </Application>
   </Applications>

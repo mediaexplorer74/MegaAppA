@@ -1,18 +1,30 @@
-MegaApp 3.0 alpha
-MegaApp is full MegaBox remake :) This is prolongation of MegaApp 2.0 project. 
+#MegaApp 4.0
+This is prolongation of MegaApp 3.0a experimental project =) 
 
-Platform: UWP (not Xamarin!!!)
+## Tech details
+- Platform: UWP
+- Targets: ARM, x64
+- OS: Windows 10/11, Windows 10 Mobile (os build: 14393 or above)
 
-Description
-"MEGA APP" is a "cover" for Windows 10 Mobile Lumia fans' Mega.Nz repo (https://mega.nz/folder/SYtigRjB#EhNuflDF9fefSXuolgn0Rw)
+##Description
+"MEGA APP" is simplest "cover" for Windows 10 Mobile Lumia fans' 
+![Mega.Nz file storage](https://mega.nz/folder/SKZxnQAR#EvlQqjMIVQwoxcje9r-jAw).
 
-Welcome to Windows 10 mobile Group :) 
-OT : @Windows10MobileOT
+##Screenshots
+![Screenshot 1](Images/shot1.png)
+
+##What's new
+I only fixed main categories at main menu. 
+
+##Todo (future plans)
+UI re-design (show item's mod. date?), new kind of item sorting (order by file date attr.), etc. 
 
 
-![screenshot1](shot1.png "screenshot1")
-![screenshot2](shot2.png "screenshot2")
+AS IS. No support. 
 
-Status: work in progress (3.0 alpha) 
-Todo (future plans): re-design, async improvements, etc. =)
+
+Cheers up,
+
+
+  [m][e] 2022
 

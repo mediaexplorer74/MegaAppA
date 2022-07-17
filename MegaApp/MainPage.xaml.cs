@@ -222,81 +222,82 @@ namespace MegaApp
                 MegaManager.GetAllNews(MegaItems);
                 TitleTextBlock.Text = $"Home";
             }
-            else if (Guides.IsSelected)
+            else if (APPX.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("!Guides", MegaItems);
-                TitleTextBlock.Text = $"Guides";
+                MegaManager.GetItemsbyCategory("APPX", MegaItems);
+                TitleTextBlock.Text = $"APPX";
             }
-            else if (CameranPhotos.IsSelected)
+            else if (APPXGames.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Camera + Photos", MegaItems);
-                TitleTextBlock.Text = $"Camera + Photos";
+                MegaManager.GetItemsbyCategory("APPX Games", MegaItems);
+                TitleTextBlock.Text = $"APPX Games";
             }
-            else if (Customization.IsSelected)
+            else if (Camera.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Customization", MegaItems);
-                TitleTextBlock.Text = $"Customization";
+                MegaManager.GetItemsbyCategory("Camera", MegaItems);
+                TitleTextBlock.Text = $"Camera";
             }
-            //else if (Dependencies.IsSelected)
-            //{
-            //    MegaManager.GetItemsbyCategory("Dependencies", MegaItems);
-            //    TitleTextBlock.Text = $"Dependancies";
-            //}
-            //else if (Emulators.IsSelected)
-            //{
-            //    MegaManager.GetItemsbyCategory("Emulators", MegaItems);
-            //    TitleTextBlock.Text = $"Emulators";
-            //}
-            //else if (HPExclusive.IsSelected)
-            //{
-            //    MegaManager.GetItemsbyCategory("Hp exclusive apps", MegaItems);
-            //    TitleTextBlock.Text = $"HP exclusive apps";
-            //}
+            else if (Dependencies.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Dependencies", MegaItems);
+                TitleTextBlock.Text = $"Dependancies";
+            }
+            else if (Extensions.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Extensions", MegaItems);
+                TitleTextBlock.Text = $"Extensions";
+            }
+            else if (Extras.IsSelected)
+            {
+                MegaManager.GetItemsbyCategory("Extras", MegaItems);
+                TitleTextBlock.Text = $"Extras";
+            }
             else if (MicrosoftApps.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Microsoft apps (Stock,leaked,retired,Extensions, etc)", MegaItems);
+                MegaManager.GetItemsbyCategory("Microsoft", MegaItems);
                 TitleTextBlock.Text = $"Microsoft apps";
             }
-            else if (Multimedia.IsSelected)
+            else if (TelegramGroup.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Multimedia", MegaItems);
-                TitleTextBlock.Text = $"Multimedia";
+                MegaManager.GetItemsbyCategory("Telegram group", MegaItems);
+                TitleTextBlock.Text = $"Telegram group";
             }
-            else if (OldMemories.IsSelected)
+            else if (XAP.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Old memories and resources", MegaItems);
-                TitleTextBlock.Text = $"Old memories and resources";
+                MegaManager.GetItemsbyCategory("XAP", MegaItems);
+                TitleTextBlock.Text = $"XAP";
             }
             //else if (Productivity.IsSelected)
             //{
             //    MegaManager.GetItemsbyCategory("Productivity", MegaItems);
             //    TitleTextBlock.Text = $"Productivity";
             //}
-            else if (Social.IsSelected)
+            else if (XAPGames.IsSelected)
             {
-                MegaManager.GetItemsbyCategory("Social", MegaItems);
-                TitleTextBlock.Text = $"Social";
+                MegaManager.GetItemsbyCategory("XAP Games", MegaItems);
+                TitleTextBlock.Text = $"XAP Games";
             }
-            else if (Tweaks.IsSelected)
-            {
-                MegaManager.GetItemsbyCategory("Tools and Tweaks", MegaItems);
-                TitleTextBlock.Text = $"Tools and Tweaks";
-            }
-            else if (Travel.IsSelected)
-            {
-                MegaManager.GetItemsbyCategory("Travel, Weather, News, Sports, Navigation", MegaItems);
-                TitleTextBlock.Text = "Travel, Weather, etc.";
-            }
+            //else if (Tweaks.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Tools and Tweaks", MegaItems);
+            //    TitleTextBlock.Text = $"Tools and Tweaks";
+            //}
+            //else if (Travel.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Travel, Weather, News, Sports, Navigation", MegaItems);
+            //    TitleTextBlock.Text = "Travel, Weather, etc.";
+            //}
             //else if (W10M.IsSelected)
             //{
             //    MegaManager.GetItemsbyCategory("W10M PC Tools", MegaItems);
             //    TitleTextBlock.Text = "W10M PC Tools";
             //}
-            else if (XBox.IsSelected)
-            {
-                MegaManager.GetItemsbyCategory("Xbox and Non Xbox live Games", MegaItems);
-                TitleTextBlock.Text = "Xbox and Non Xbox live Games";
-            }
+            //else if (XBox.IsSelected)
+            //{
+            //    MegaManager.GetItemsbyCategory("Xbox and Non Xbox live Games", MegaItems);
+            //    TitleTextBlock.Text = "Xbox and Non Xbox live Games";
+            //}
+            
             SearchBox.Text = ""; // clear SearchBox =)
 
         }//
@@ -347,22 +348,22 @@ namespace MegaApp
            
             MyProgressRing.IsActive = true;
             MyProgressRing.Visibility = Visibility.Visible;
-                                     
+
 
             // ******************************************************************
-            
+
             // phase 1 
             // !!
             //MegaItems = new ObservableCollection<Model.DataItem>();
 
             //TEST 0
-            //megaStorageURL = "https://mega.nz/#F!e1ogxQ7T!ee4Q_ocD1bSLmNeg9B6kBw"; // Sample 1 (created by someone)
+            //megaStorageURL = "https://mega.nz/#F!SYtigRjB!EhNuflDF9fefSXuolgn0Rw"; // Old W10M Group repo (obsolete/disabled)
 
             //TEST 1
-            //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; // Sample 2 (created by ME)
+            //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; // ME repo (TEST)
 
             //TEST 2
-            megaStorageURL = "https://mega.nz/#F!SYtigRjB!EhNuflDF9fefSXuolgn0Rw"; // Prod (W10M)
+            megaStorageURL = "https://mega.nz/folder/SKZxnQAR#EvlQqjMIVQwoxcje9r-jAw"; // New W10M Group repo (PROD)
 
             // phase 2 
             // Collect and prepare Mega.nz data...

@@ -1,5 +1,5 @@
-MainPackage=c:\Users\media\source\repos\MegaApp 3.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_3.0.9.0_ARM_Debug.appx
-ResourcePack=c:\Users\media\source\repos\MegaApp 3.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_3.0.9.0_scale-100.appx
-ResourcePack=c:\Users\media\source\repos\MegaApp 3.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_3.0.9.0_scale-125.appx
-ResourcePack=c:\Users\media\source\repos\MegaApp 3.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_3.0.9.0_scale-150.appx
-ResourcePack=c:\Users\media\source\repos\MegaApp 3.0 Alpha\MegaApp\bin\ARM\Debug\MegaApp_3.0.9.0_scale-400.appx
+MainPackage=C:\Users\media\source\repos\MegaApp-w10m\MegaApp\bin\ARM\Debug\MegaApp_4.0.0.0_ARM_Debug.appx
+ResourcePack=C:\Users\media\source\repos\MegaApp-w10m\MegaApp\bin\ARM\Debug\MegaApp_4.0.0.0_scale-100.appx
+ResourcePack=C:\Users\media\source\repos\MegaApp-w10m\MegaApp\bin\ARM\Debug\MegaApp_4.0.0.0_scale-125.appx
+ResourcePack=C:\Users\media\source\repos\MegaApp-w10m\MegaApp\bin\ARM\Debug\MegaApp_4.0.0.0_scale-150.appx
+ResourcePack=C:\Users\media\source\repos\MegaApp-w10m\MegaApp\bin\ARM\Debug\MegaApp_4.0.0.0_scale-400.appx
