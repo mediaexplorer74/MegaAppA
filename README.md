@@ -12,6 +12,7 @@ This is prolongation of MegaApp 3.0a experimental project =)
 
 ##Screenshots
 ![Screenshot 1](Images/shot1.png)
+![Screenshot 2](Images/shot2.png)
 
 ##What's new
 I only fixed main categories at main menu. 
