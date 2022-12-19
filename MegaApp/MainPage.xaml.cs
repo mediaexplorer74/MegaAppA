@@ -52,8 +52,6 @@ namespace MegaApp
         {
             Contact.MegaCount = 0; // counter init 
 
-            Contact.MegaCount = 0; // counter init 
-
             CurrectFCategory = "<Root>"; // 'parent' group (file category) init  
             DirectoryCount = 0;
 
@@ -342,6 +340,7 @@ namespace MegaApp
             FItems.ForEach(p => MegaItems.Add(p));
         }//
 
+
         // ** FIRST PROCESS ** 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -369,31 +368,7 @@ namespace MegaApp
             // Collect and prepare Mega.nz data...
             await PreprocessAsync(megaStorageURL); // non-async
 
-
-            // Start loading Data from Mega.Nz...
-            /*
-            while (Contact.MegaCount < 1923)
-            {
-                Task t = PreprocessAsync(megaStorageURL);//MarvelFacade.PopulateMarvelCharactersAsync(MarvelCharacters);
-                await t;
-            }
-            */
-
-            // ************************************************
-            /*
-            var FItems = MegaManager.getMegaItems();
-
-
-            if (MegaItems != null)
-            {
-                MegaItems.Clear();
-                FItems.ForEach(p => MegaItems.Add(p));
-            }
-            */
-
-           
-            // ******************************************************************
-
+          
 
             MegaManager.GetAllNews(MegaItems);
 
@@ -402,7 +377,9 @@ namespace MegaApp
 
             MyProgressRing.IsActive = false;
             MyProgressRing.Visibility = Visibility.Collapsed;
-        }
+
+        }//Page_Loaded
+
 
         // MegaItem_Tapped
         private async void MegaItemGrid_ItemClick(object sender, ItemClickEventArgs e)

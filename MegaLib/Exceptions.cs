@@ -13,7 +13,10 @@
 
     public override string Message
     {
-      get { return string.Format("API response: {0}", this.ApiResultCode); }
+      get 
+        { 
+            return string.Format("API response: {0}", this.ApiResultCode); 
+        }
     }
   }
 

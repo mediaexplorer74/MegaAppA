@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="White"
     >
     <!--
     
@@ -20,7 +20,7 @@
               Margin="2" 
               Height="140" 
               Width="120"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              Background="White"
                             
          >
         <Grid.RowDefinitions>
@@ -59,7 +59,7 @@
                Height="32"
                />
         <RelativePanel Grid.Row="1" Margin="10"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"               
+        Background="White"               
         >
 
 
@@ -68,7 +68,7 @@
                        RelativePanel.AlignTopWithPanel="True" 
                        FontSize="8"
                        TextWrapping="Wrap" 
-                       Foreground="{ThemeResource AppBarForeground}"
+                       Foreground="Blue"
                        
                        />
 
@@ -81,7 +81,7 @@
                        Name="DateLine"
                        RelativePanel.Below="Subhead" 
                        FontSize="10" 
-                       Foreground="{ThemeResource AppBarForeground}"
+                       Foreground="Blue"
                        
                        />
 
@@ -92,7 +92,7 @@
                        FontWeight="Bold"
                        TextWrapping="Wrap" 
                        Margin="0,1,0,1"
-                       Foreground="{ThemeResource AppBarForeground}"
+                       Foreground="Green"
                        
                        />
 

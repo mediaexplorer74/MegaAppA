@@ -4,17 +4,20 @@ namespace CG.Web.MegaApiClient
 
   public class ApiRequestFailedEventArgs : EventArgs
   {
-    public ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, ApiResultCode apiResult, string responseJson)
+    public ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, 
+        ApiResultCode apiResult, string responseJson)
       : this(url, attemptNum, retryDelay, apiResult, responseJson, null)
     {
     }
 
-    public ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, ApiResultCode apiResult, Exception exception)
+    public ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, 
+        ApiResultCode apiResult, Exception exception)
       : this(url, attemptNum, retryDelay, apiResult, null, exception)
     {
     }
 
-    private ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, ApiResultCode apiResult, string responseJson, Exception exception)
+    private ApiRequestFailedEventArgs(Uri url, int attemptNum, TimeSpan retryDelay, 
+        ApiResultCode apiResult, string responseJson, Exception exception)
     {
       this.ApiUrl = url;
       this.AttemptNum = attemptNum;

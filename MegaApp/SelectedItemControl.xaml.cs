@@ -19,12 +19,21 @@ namespace MegaApp
 {
     public sealed partial class SelectedItemControl : UserControl
     {
-        public Model.DataItem MegaItem { get { return this.DataContext as Model.DataItem; } }
+        public Model.DataItem MegaItem 
+        { 
+            get 
+            { 
+                return this.DataContext as Model.DataItem; 
+            } 
+        }
 
         public SelectedItemControl()
         {
             this.InitializeComponent();
-            this.DataContextChanged += (s, e) => Bindings.Update();
+            this.DataContextChanged += (s, e) =>
+            {
+                Bindings.Update();
+            };
         }
     }
 }
