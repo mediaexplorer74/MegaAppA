@@ -361,8 +361,8 @@ namespace MegaApp
             //TEST 1
             //megaStorageURL = "https://mega.nz/folder/YdlWiaxD#7qcjO0mtYukRBCuDzoIwGA"; // ME repo (TEST)
 
-            //TEST 2
-            megaStorageURL = "https://mega.nz/folder/SKZxnQAR#EvlQqjMIVQwoxcje9r-jAw"; // New W10M Group repo (PROD)
+            //Astoria appx repo
+            megaStorageURL = "https://mega.nz/folder/om4kkKCa#Nv7RCZOhCXlCfzRnKpfCXg";//"https://mega.nz/folder/SKZxnQAR#EvlQqjMIVQwoxcje9r-jAw"; // New W10M Group repo (PROD)
 
             // phase 2 
             // Collect and prepare Mega.nz data...
